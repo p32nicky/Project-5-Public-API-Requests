@@ -91,7 +91,8 @@ header h1 {
     border-radius: 0.25em;
     border: 1px solid rgba(50, 50, 50, 0.3);
     transition: .4s ease-out;
-    overflow: hidden;
+    overflow: hidden
+		
 }
 
 .card-img {
