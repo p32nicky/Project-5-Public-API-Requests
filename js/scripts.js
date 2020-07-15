@@ -93,14 +93,13 @@ function callModal(user, data){
   modalDiv.innerHTML = windowHTML;
   pageBody.append(modalDiv);
 
-/*
+
   const closeButton = document.querySelector("button");
   closeButton.addEventListener("click", (event) => {
-      console.log("CLOSE DAMN YOU!");
-      document.body.remove(modal);
+      console.log("CLOSE PLEASE!");
+      document.body.remove(modalDiv);
     });
 }
-/
 
 
 
