@@ -96,7 +96,7 @@ function callModal(user, data){
   pageBody.append(modalDiv);
 
   const closeButton = document.getElementById("modal-close-btn");
-  closeButton.addEventListener("click", (e) => console.log('test'));
+  closeButton.addEventListener("click", console.log('test'));
 
 }
 
