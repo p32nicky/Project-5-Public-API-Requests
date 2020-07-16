@@ -88,13 +88,15 @@ function callModal(user, data){
         </div>`
   const modalDiv = document.createElement("div");
   modalDiv.className = "modal-container";
+  modalDiv.id = "modal-container";
+
   const pageBody = document.querySelector("body");
   modalDiv.setAttribute("class", "modal-container");
   modalDiv.innerHTML = windowHTML;
   pageBody.append(modalDiv);
 
   const closeButton = document.getElementById("modal-close-btn");
-  closeButton.addEventListener("click", modalDiv.remove());
+  closeButton.addEventListener("click", (e) => console.log('test'));
 
 }
 
