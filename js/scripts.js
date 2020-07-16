@@ -37,7 +37,7 @@ const searchInputs = searchDiv.innerHTML = `
 
 
 const galleryDiv = document.getElementsByClassName("gallery")[0];
-function galleryProfile(employees, data){
+function galleryProfile(employees){
 
   employees.forEach(user => {
     let cardDiv = document.createElement('div');
@@ -61,7 +61,7 @@ function galleryProfile(employees, data){
 
       cardDiv.addEventListener('click', (e) =>{
         e.preventDefault();
-        callModal(user, data);
+        callModal(user);
       });
     })
 
@@ -71,7 +71,7 @@ function galleryProfile(employees, data){
 //Model HTML Setup
 
 
-function callModal(user, data){
+function callModal(user){
   let windowHTML = `<div class="modal-container">
         <div class="modal">
             <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
@@ -95,12 +95,12 @@ function callModal(user, data){
   modalDiv.innerHTML = windowHTML;
   pageBody.append(modalDiv);
 
-  const closeButton = document.getElementById("modal-close-btn");
-  closeButton.clicked = 'false';
-  if(closeButton.clicked === 'true'){
-      modalDiv.remove();
-  }
-
+  let closeButton = document.getElementById("modal-close-btn");
+  closeButton.addEventListener('clicked', () => {
+    if(closeButton.clicked === 'true'){
+        modalDiv.remove();
+    }
+  });
 }
 
 
