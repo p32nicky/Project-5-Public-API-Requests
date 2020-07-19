@@ -95,7 +95,7 @@ function callModal(user){
   modalDiv.innerHTML = windowHTML;
   pageBody.append(modalDiv);
 
-  let closeButton = document.getElementById("modal-close-btn");
+  let closeButton = document.getElementById("modal-close-btn"); //[0]
   closeButton.addEventListener('clicked', () => {
     if(closeButton.clicked === 'true'){
         modalDiv.remove();
@@ -103,7 +103,12 @@ function callModal(user){
   });
 }
 
-
+/*
+let closeButton.addEventListener("click", (event) => {
+        if (event.target) {
+          modalDiv.remove();
+        }
+*/
 
 
 const searchSubmit = document.getElementById('search-submit');
