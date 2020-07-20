@@ -22,24 +22,15 @@ fetchData("https://randomuser.me/api/?results=12&nat=us")
   galleryProfile(employees)
 });
 
-//Search Setup
-const searchDiv = document.getElementsByClassName("search-container")[0];
-const header = document.getElementsByClassName("header-inner-container")[0];
-
-const searchInputs = searchDiv.innerHTML = `
-  <form action="#" method="get">
-    <input type="search" id="search-input" class="search-input" placeholder="Search...">
-    <input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
-  </form>`;
-  header.style.backgroundColor = '#5cdb95';
 
 //Profile Gallery Setup
 
 
-const galleryDiv = document.getElementsByClassName("gallery")[0];
+const gallery = document.getElementsByClassName("gallery")[0];
 function galleryProfile(employees){
-
+let clickedUser = 0;
   employees.forEach(user => {
+    clickedUser = user;
     let cardDiv = document.createElement('div');
     cardDiv.className = "card";
     employees.map((person, index) =>{
@@ -57,19 +48,21 @@ function galleryProfile(employees){
 
       </div>`;
       cardDiv.innerHTML = cardHTML;
-      galleryDiv.append(cardDiv);
+      gallery.append(cardDiv);
 
-      cardDiv.addEventListener('click', (e) =>{
-        e.preventDefault();
-        callModal(user);
-      });
     })
-
+    cardDiv.addEventListener('click', (e) =>{
+      e.preventDefault();
+      callModal(user);
+    });
   })
+
 }
 
 //Model HTML Setup
 
+//Used Date.prototype.toLocaleDateString() to fix birthday
+//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleDateString
 
 function callModal(user){
   let windowHTML = `<div class="modal-container">
@@ -83,7 +76,7 @@ function callModal(user){
                 <hr>
                 <p class="modal-text">${user.cell}</p>
                 <p class="modal-text">${user.location.street.number} ${user.location.street.name}, ${user.location.city}, ${user.location.state} ${user.location.postcode}</p>
-                <p class="modal-text">${user.dob.date}</p>
+                <p class="modal-text">Birthday ${new Date(user.dob.date).toLocaleDateString()}</p>
             </div>
         </div>`
   const modalDiv = document.createElement("div");
@@ -95,28 +88,35 @@ function callModal(user){
   modalDiv.innerHTML = windowHTML;
   pageBody.append(modalDiv);
 
-  let closeButton = document.getElementById("modal-close-btn"); //[0]
-  closeButton.addEventListener('clicked', () => {
-    if(closeButton.clicked === 'true'){
-        modalDiv.remove();
-    }
-  });
+  document /* Remove the current modal */
+        .getElementById('modal-close-btn')
+        .addEventListener('click', () => {
+          const modal = document.querySelector('.modal-container');
+          document.body.removeChild(modalDiv);
+        });
 }
 
-/*
-let closeButton.addEventListener("click", (event) => {
-        if (event.target) {
-          modalDiv.remove();
-        }
-*/
+//Search Setup
+const searchDiv = document.getElementsByClassName("search-container")[0];
+const header = document.getElementsByClassName("header-inner-container")[0];
+header.style.backgroundColor = '#5cdb95';
 
+
+const searchInputs = searchDiv.innerHTML = `
+  <form action="#" method="get">
+    <input type="search" id="search-input" class="search-input" placeholder="Search...">
+    <input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
+  </form>`;
 
 const searchSubmit = document.getElementById('search-submit');
-searchSubmit.addEventListener('click', (e) =>{
-});
 
-
-
-function employeeSearch(employees){
+searchSubmit.addEventListener('click', () => employeeSearch());
+function employeeSearch(){
+  const searchInput = document.getElementById('search-input').value;
+  const searchedName = employees.filter((person) => {
+      employees.name.first.toLowerCase().includes(searchInput) ||
+      employees.name.last.toLowerCase().includes(searchInput)
+    });
+    gallery(searchedName);
 
 }
