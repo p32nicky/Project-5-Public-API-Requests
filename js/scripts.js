@@ -27,12 +27,11 @@ const gallery = document.getElementsByClassName("gallery")[0];
 function galleryProfile(employees){
 let clickedUser = 0;
 employees.forEach(user => {
-  clickedUser = user;
-  let cardDiv = document.createElement('div');
-  cardDiv.className = "card";
-  employees.map((person, index) =>{
-    //  cardDiv.setAttribute("class", "card");
-      let cardHTML=  `
+    clickedUser = user;
+    let cardDiv = document.createElement('div');
+    cardDiv.className = "card";
+    employees.map((person, index) =>{
+    let cardHTML=  `
       <div class="card" data-id=${index}>
       <div class="card-img-container">
       <img class="card-img" src=${user.picture.large} alt="profile picture">
@@ -43,9 +42,9 @@ employees.forEach(user => {
       <p class="card-text cap">${user.location.city}, ${user.location.state}</p>
 
       </div>`;
-      cardDiv.innerHTML = cardHTML;
-      gallery.append(cardDiv);
-      return cardDiv;
+    cardDiv.innerHTML = cardHTML;
+    gallery.append(cardDiv);
+    return cardDiv;
     })
     cardDiv.addEventListener('click', (e) =>{
       e.preventDefault();
@@ -60,19 +59,19 @@ employees.forEach(user => {
 //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleDateString
 function callModal(user){
   let windowHTML = `<div class="modal-container">
-        <div class="modal">
-            <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
-            <div class="modal-info-container">
-                <img class="modal-img" src=${user.picture.large} alt="profile picture">
-                <h3 id="name" class="modal-name cap">${user.name.first} ${user.name.last} </h3>
-                <p class="modal-text">${user.email}</p>
-                <p class="modal-text cap">${user.location.city}</p>,
-                <hr>
-                <p class="modal-text">${user.cell}</p>
-                <p class="modal-text">${user.location.street.number} ${user.location.street.name}, ${user.location.city}, ${user.location.state} ${user.location.postcode}</p>
-                <p class="modal-text">Birthday ${new Date(user.dob.date).toLocaleDateString()}</p>
-            </div>
-        </div>`
+  <div class="modal">
+  <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
+  <div class="modal-info-container">
+  <img class="modal-img" src=${user.picture.large} alt="profile picture">
+  <h3 id="name" class="modal-name cap">${user.name.first} ${user.name.last} </h3>
+  <p class="modal-text">${user.email}</p>
+  <p class="modal-text cap">${user.location.city}</p>,
+  <hr>
+  <p class="modal-text">${user.cell}</p>
+  <p class="modal-text">${user.location.street.number} ${user.location.street.name}, ${user.location.city}, ${user.location.state} ${user.location.postcode}</p>
+  <p class="modal-text">Birthday ${new Date(user.dob.date).toLocaleDateString()}</p>
+  </div>
+  </div>`
   const modalDiv = document.createElement("div");
   modalDiv.className = "modal-container";
   modalDiv.id = "modal-container";
@@ -128,12 +127,12 @@ for(let i = 0; i < cardArray.length; i+=1){
   };
 };
 
-//The little X that appears in the input field after you type. You can press it when done and it will clear the page and reload.
+//The little X that appears in the input field after you type. It will show all hidden cards
 function clearXButton(){
   document.getElementById("search-input").addEventListener("click", function(event) {
     const reloadCards = document.querySelectorAll('.card');
-    for(let i = 0; i < reloadCards.length; i+=1){
-      reloadCards[i].style.display = '';
-}
+    for(let rc = 0; rc < reloadCards.length; rc+=1){
+      reloadCards[rc].style.display = '';
+    }
   });
 }
