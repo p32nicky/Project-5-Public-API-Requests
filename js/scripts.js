@@ -26,11 +26,11 @@ fetchData("https://randomuser.me/api/?results=12&nat=us")
 const gallery = document.getElementsByClassName("gallery")[0];
 function galleryProfile(employees){
 let clickedUser = 0;
-  employees.forEach(user => {
-    clickedUser = user;
-    let cardDiv = document.createElement('div');
-    cardDiv.className = "card";
-    employees.map((person, index) =>{
+employees.forEach(user => {
+  clickedUser = user;
+  let cardDiv = document.createElement('div');
+  cardDiv.className = "card";
+  employees.map((person, index) =>{
     //  cardDiv.setAttribute("class", "card");
       let cardHTML=  `
       <div class="card" data-id=${index}>
@@ -117,13 +117,23 @@ for(let i = 0; i < cardArray.length; i+=1){
     const nameResult = cardArray[i].querySelector('h3').textContent.toString().toLowerCase();
       if(nameResult.match(searchInput)){
         cardArray[i].style.display = '';
-      } else {
-        cardArray[i].style.display = 'none';
+        clearXButton();
+      } else { cardArray[i].style.display = 'none';
+      clearXButton();
 
       }if(searchInput === ""){
         alert("Please enter a person and try again.");
         break;
       }
   };
+};
 
+//The little X that appears in the input field after you type. You can press it when done and it will clear the page and reload.
+function clearXButton(){
+  document.getElementById("search-input").addEventListener("click", function(event) {
+    const reloadCards = document.querySelectorAll('.card');
+    for(let i = 0; i < reloadCards.length; i+=1){
+      reloadCards[i].style.display = '';
+}
+  });
 }
