@@ -119,12 +119,10 @@ for(let i = 0; i < cardArray.length; i+=1){
     console.log(nameResult);
     if(searchInput === ""){
       alert("Please enter a person and try again");
-    }
-
-    if(nameResult === searchInput){
-        document.body.status.show(cardDiv[i]);
+    }else if(nameResult.match(searchInput)){
+        cardArray[i].style.display = '';
       } else {
-        document.body.status.hide(cardDiv[i]);
+        cardArray[i].style.display = 'none';
 
       }
   };
