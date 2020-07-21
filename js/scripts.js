@@ -3,7 +3,7 @@ function fetchData(url){
   return fetch(url)
     .then(checkStatus)
     .then(res => res.json())
-    .catch(error => console("Looks like a problem", error))
+    .catch(error => console("Houston, Looks like we have a problem", error))
   }
 
 function checkStatus(response){
@@ -18,7 +18,6 @@ let employees = null;
 fetchData("https://randomuser.me/api/?results=12&nat=us")
 .then((data) => {
   employees = data.results;
-
   galleryProfile(employees)
 });
 
@@ -32,7 +31,6 @@ let clickedUser = 0;
     let cardDiv = document.createElement('div');
     cardDiv.className = "card";
     employees.map((person, index) =>{
-      console.log(employees);
     //  cardDiv.setAttribute("class", "card");
       let cardHTML=  `
       <div class="card" data-id=${index}>
@@ -58,10 +56,8 @@ let clickedUser = 0;
 }
 
 //Model HTML Setup
-
 //Used Date.prototype.toLocaleDateString() to fix birthday
 //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleDateString
-
 function callModal(user){
   let windowHTML = `<div class="modal-container">
         <div class="modal">
@@ -86,20 +82,23 @@ function callModal(user){
   modalDiv.innerHTML = windowHTML;
   pageBody.append(modalDiv);
 
-  document /* Remove the current modal */
-        .getElementById('modal-close-btn')
-        .addEventListener('click', () => {
-          const modal = document.querySelector('.modal-container');
-          document.body.removeChild(modalDiv);
-        });
+/*Remove the current modal -
+I had problems with this for a while as I had my append
+modal call in the for each loop of the users, and it would render the background very dark
+and wouldn't assign the close button correctly.
+*/
+document.getElementById('modal-close-btn').addEventListener('click', () => {
+  const modal = document.querySelector('.modal-container');
+  document.body.removeChild(modalDiv);
+  });
 }
 
-//Search Setup
+//Search Setup and check against names listed using h3 textcontent
 const searchDiv = document.getElementsByClassName("search-container")[0];
 const header = document.getElementsByClassName("header-inner-container")[0];
 header.style.backgroundColor = '#5cdb95';
 
-
+//Search inputs HTML setup
 const searchInputs = searchDiv.innerHTML = `
   <form action="#" method="get">
     <input type="search" id="search-input" class="search-input" placeholder="Search...">
@@ -107,23 +106,23 @@ const searchInputs = searchDiv.innerHTML = `
   </form>`;
 
 const searchSubmit = document.getElementById('search-submit');
-
 searchSubmit.addEventListener('click', () => employeeSearch());
 function employeeSearch(cardDiv){
   const searchInput = document.getElementById('search-input').value.toString().toLowerCase();
   const cardArray = document.querySelectorAll('.card');
-  console.log(cardArray.length);
 
+//For some reason when I would console.log nameResult, it would show 24 results, two of each person.
+//I couldn't figure out why but it didn't break program so I moved on.
 for(let i = 0; i < cardArray.length; i+=1){
     const nameResult = cardArray[i].querySelector('h3').textContent.toString().toLowerCase();
-    console.log(nameResult);
-    if(searchInput === ""){
-      alert("Please enter a person and try again");
-    }else if(nameResult.match(searchInput)){
+      if(nameResult.match(searchInput)){
         cardArray[i].style.display = '';
       } else {
         cardArray[i].style.display = 'none';
 
+      }if(searchInput === ""){
+        alert("Please enter a person and try again.");
+        break;
       }
   };
 
