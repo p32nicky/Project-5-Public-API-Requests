@@ -24,8 +24,6 @@ fetchData("https://randomuser.me/api/?results=12&nat=us")
 
 
 //Profile Gallery Setup
-
-
 const gallery = document.getElementsByClassName("gallery")[0];
 function galleryProfile(employees){
 let clickedUser = 0;
@@ -35,7 +33,7 @@ let clickedUser = 0;
     cardDiv.className = "card";
     employees.map((person, index) =>{
       console.log(employees);
-      cardDiv.setAttribute("class", "card");
+    //  cardDiv.setAttribute("class", "card");
       let cardHTML=  `
       <div class="card" data-id=${index}>
       <div class="card-img-container">
@@ -49,7 +47,7 @@ let clickedUser = 0;
       </div>`;
       cardDiv.innerHTML = cardHTML;
       gallery.append(cardDiv);
-
+      return cardDiv;
     })
     cardDiv.addEventListener('click', (e) =>{
       e.preventDefault();
@@ -111,12 +109,24 @@ const searchInputs = searchDiv.innerHTML = `
 const searchSubmit = document.getElementById('search-submit');
 
 searchSubmit.addEventListener('click', () => employeeSearch());
-function employeeSearch(){
-  const searchInput = document.getElementById('search-input').value;
-  const searchedName = employees.filter((person) => {
-      employees.name.first.toLowerCase().includes(searchInput) ||
-      employees.name.last.toLowerCase().includes(searchInput)
-    });
-    gallery(searchedName);
+function employeeSearch(cardDiv){
+  const searchInput = document.getElementById('search-input').value.toString().toLowerCase();
+  const cardArray = document.querySelectorAll('.card');
+  console.log(cardArray.length);
+
+for(let i = 0; i < cardArray.length; i+=1){
+    const nameResult = cardArray[i].querySelector('h3').textContent.toString().toLowerCase();
+    console.log(nameResult);
+    if(searchInput === ""){
+      alert("Please enter a person and try again");
+    }
+
+    if(nameResult === searchInput){
+        document.body.status.show(cardDiv[i]);
+      } else {
+        document.body.status.hide(cardDiv[i]);
+
+      }
+  };
 
 }
