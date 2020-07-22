@@ -39,7 +39,7 @@ employees.forEach(user => {
       <div class="card-info-container">
       <h3 id="name" class="card-name cap">${user.name.first} ${user.name.last}</h3>
       <p class="card-text">${user.email}</p>
-      <p class="card-text cap">${user.location.city}, ${user.location.state}</p>
+      <p class="card-text cap">${user.location.city} ${user.location.state}</p>
 
       </div>`;
     cardDiv.innerHTML = cardHTML;
